@@ -2,14 +2,18 @@ from PIL import Image
 import math
 
 def encode(text):
+    img = Image.open('bg.jpg')
     str_len = len(text)
     width = math.ceil(str_len**0.5)
+    img = img.resize((width, width))
+    red = img.split()
     im = Image.new("RGB", (width, width), 0x0)
 
     x, y = 0, 0
     for i in text:
+        color=img.getpixel((x,y))
         index = ord(i)
-        rgb = ( 0,  (index & 0xFF00) >> 8,  index & 0xFF)
+        rgb = ( color[0],  (index & 0xFF00) >> 8,  index & 0xFF)
         im.putpixel( (x, y),  rgb )
         if x == width - 1:
             x = 0
