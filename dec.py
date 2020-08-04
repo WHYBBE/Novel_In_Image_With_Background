@@ -3,13 +3,19 @@ from PIL import Image
 def decode(im):
     width, height = im.size
     lst = [ ]
+    index_ago=0
     for y in range(height):
         for x in range(width):
             red, green, blue = im.getpixel((x, y))
             if (blue | green | red) == 0:
                 break
-            
-            index = (green << 8) + blue
+            if(index_ago%3==1):
+                index = (green << 8) + blue
+            elif(index_ago%3==2):
+                index = (red << 8) + blue
+            else:
+                index = (red << 8) + green
+            index_ago=index
             lst.append( chr(index) )
 
     return ''.join(lst)
