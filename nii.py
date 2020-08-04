@@ -1,7 +1,5 @@
 import os
 import sys
-import enc
-import dec
 
 args = sys.argv
 rds = ['-e', '-d']
@@ -40,6 +38,8 @@ if __name__ == '__main__':
     elif len(args) == 2 and args[1] == '-i':
         install_dependencies()
     elif len(args) == 3 and args[1] in rds:
+        import enc
+        import dec
         if args[1] == rds[0]:
             enc.main(args[2])
         else:
